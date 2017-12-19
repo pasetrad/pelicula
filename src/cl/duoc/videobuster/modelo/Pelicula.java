@@ -10,7 +10,7 @@ package cl.duoc.videobuster.modelo;
  * @author GarlefS
  */
 public class Pelicula {
-    private Integer codigo,precio;
+    private Integer codigo,precio, stock;
     private String formato4k,nombre,descripcion;
 
     public Pelicula() {
@@ -22,6 +22,23 @@ public class Pelicula {
         this.descripcion = descripcion;
         this.formato4k = formato4k;
         this.nombre = nombre;
+    }
+
+    public Pelicula(Integer codigo, Integer precio, Integer stock, String formato4k, String nombre, String descripcion) {
+        this.codigo = codigo;
+        this.precio = precio;
+        this.stock = stock;
+        this.formato4k = formato4k;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     

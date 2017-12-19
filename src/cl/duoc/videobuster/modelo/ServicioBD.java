@@ -8,6 +8,7 @@ package cl.duoc.videobuster.modelo;
 
 
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,7 +23,7 @@ public class ServicioBD {
     
     private static ServicioBD aux;
     
-    private ServicioBD(){};
+    public ServicioBD(){};
     
     public static ServicioBD metodo(){
         if(aux == null){
@@ -189,6 +190,26 @@ public class ServicioBD {
             return pel;
     }
     
+        public ResultSet obtenerPelis() throws SQLException{
+            Conexion conexionObjeto = new Conexion();
+            Connection conexion = conexionObjeto.obtenerInstancia();
+            Statement consultita = conexion.createStatement();
+            String otroSql = "SELECT NOMBRE FROM TBL_PELICULA";
+            ResultSet rs = consultita.executeQuery(otroSql);
+            ResultSet flag = null;
+            while (rs.next()){
+                flag = rs;
+            }
+            return flag;
+        }
+        
+        public ResultSet obtenerOtrosAtributos() throws SQLException{
+            Conexion conexionObjeto = new Conexion();
+            Connection conexion = conexionObjeto.obtenerInstancia();
+            Statement queryArticulo = conexion.createStatement();
+            
+            return flag;
+        }
     
     public void modificarPelicula(Pelicula a,Integer id_categoria){
         

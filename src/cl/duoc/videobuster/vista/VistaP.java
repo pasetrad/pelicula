@@ -11,7 +11,10 @@ import cl.duoc.videobuster.controlador.Agregar;
 import cl.duoc.videobuster.controlador.Borrar;
 import cl.duoc.videobuster.controlador.Listar;
 import cl.duoc.videobuster.controlador.Modificar;
+import cl.duoc.videobuster.controlador.Vender;
 import cl.duoc.videobuster.modelo.Pelicula;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +34,7 @@ public class VistaP extends javax.swing.JFrame {
         panelListar.setVisible(false);
         panelEliminar.setVisible(false);
         panelModificar.setVisible(false);
+        panelVenta.setVisible(false);
         
         modiNombre.setVisible(false);
         modiPrecio.setVisible(false);
@@ -112,6 +116,16 @@ public class VistaP extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        panelVenta = new javax.swing.JPanel();
+        cMonto = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        cDescripcion = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        cDescripcion1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu = new javax.swing.JMenu();
         jMenAgregar = new javax.swing.JMenuItem();
@@ -120,6 +134,9 @@ public class VistaP extends javax.swing.JFrame {
         JMenuModificar = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuSalir = new javax.swing.JMenuItem();
+        jVenta = new javax.swing.JMenu();
+        JMenuAgregarVenta = new javax.swing.JMenuItem();
+        jMenuEliminarVenta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca");
@@ -365,9 +382,8 @@ public class VistaP extends javax.swing.JFrame {
             .addGroup(panelListarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addComponent(lblTitulo5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(panelListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,7 +398,8 @@ public class VistaP extends javax.swing.JFrame {
                         .addGroup(panelListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTitulo3)
                             .addComponent(lblTitulo4))
-                        .addGap(0, 338, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator3)))
                 .addContainerGap())
         );
         panelListarLayout.setVerticalGroup(
@@ -394,11 +411,11 @@ public class VistaP extends javax.swing.JFrame {
                 .addComponent(lblTitulo4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addGap(66, 66, 66)
                 .addComponent(lblTitulo5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl12)
                     .addComponent(jtx6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -562,7 +579,7 @@ public class VistaP extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(modiNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(panelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -630,21 +647,94 @@ public class VistaP extends javax.swing.JFrame {
                             .addComponent(btnModificar)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox4))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        jLabel11.setText("Monto");
+
+        jLabel12.setText("Descripción");
+
+        jLabel13.setText("Cantidad a comprar");
+
+        jLabel14.setText("Seleccione las películas que desea agregar ");
+
+        jButton2.setText("Agregar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelVentaLayout = new javax.swing.GroupLayout(panelVenta);
+        panelVenta.setLayout(panelVentaLayout);
+        panelVentaLayout.setHorizontalGroup(
+            panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVentaLayout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jLabel14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVentaLayout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVentaLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVentaLayout.createSequentialGroup()
+                        .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVentaLayout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jLabel12))
+                                .addGroup(panelVentaLayout.createSequentialGroup()
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton2)
+                                    .addGap(0, 128, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(45, 45, 45))
+        );
+        panelVentaLayout.setVerticalGroup(
+            panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVentaLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel14)
+                .addGap(19, 19, 19)
+                .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(cDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         jLayerdPanel.setLayer(panelAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayerdPanel.setLayer(panelListar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayerdPanel.setLayer(panelEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayerdPanel.setLayer(panelModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayerdPanel.setLayer(panelVenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayerdPanelLayout = new javax.swing.GroupLayout(jLayerdPanel);
         jLayerdPanel.setLayout(jLayerdPanelLayout);
         jLayerdPanelLayout.setHorizontalGroup(
             jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelListar, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+            .addComponent(panelListar, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
             .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                .addComponent(panelAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
             .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,12 +742,17 @@ public class VistaP extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(panelModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayerdPanelLayout.createSequentialGroup()
+                    .addContainerGap(70, Short.MAX_VALUE)
+                    .addComponent(panelVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(88, Short.MAX_VALUE)))
         );
         jLayerdPanelLayout.setVerticalGroup(
             jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelListar, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(panelListar, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
             .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+                .addComponent(panelAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE))
             .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -665,6 +760,11 @@ public class VistaP extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
+            .addGroup(jLayerdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayerdPanelLayout.createSequentialGroup()
+                    .addContainerGap(27, Short.MAX_VALUE)
+                    .addComponent(panelVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(72, Short.MAX_VALUE)))
         );
 
         jMenu.setText("Procesos");
@@ -712,17 +812,32 @@ public class VistaP extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu);
 
+        jVenta.setText("Venta");
+
+        JMenuAgregarVenta.setText("Agregar");
+        JMenuAgregarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuAgregarVentaActionPerformed(evt);
+            }
+        });
+        jVenta.add(JMenuAgregarVenta);
+
+        jMenuEliminarVenta.setText("Eliminar");
+        jVenta.add(jMenuEliminarVenta);
+
+        jMenuBar1.add(jVenta);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayerdPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+            .addComponent(jLayerdPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayerdPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+            .addComponent(jLayerdPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 482, Short.MAX_VALUE)
         );
 
         pack();
@@ -1230,6 +1345,31 @@ public class VistaP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
+    private void JMenuAgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuAgregarVentaActionPerformed
+        // TODO add your handling code here:
+        panelVenta.setVisible(true);
+       
+        
+        try {
+           Vender vende = new Vender();
+           ResultSet rs2 = vende.obtenerPelis();
+           jComboBox3.addItem(rs2.getString("Nombre"));
+            
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        
+    }//GEN-LAST:event_JMenuAgregarVentaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Pelicula peliculaVenta = new Pelicula();
+        String nombrePeli = jComboBox3.getSelectedItem().toString();
+        Vender articulo = new Vender();
+        //peliculaVenta = articulo.obtenerOtrosAtributos;
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1273,21 +1413,42 @@ public class VistaP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem JMenuAgregarVenta;
     private javax.swing.JMenuItem JMenuModificar;
     private javax.swing.JToggleButton borrar1;
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnBuscar1;
+    public javax.swing.JButton btnBuscar2;
     public javax.swing.JButton btnGuardar;
     public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnModificar;
+    public javax.swing.JButton btnModificar1;
     public javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnVolver;
     public javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField cDescripcion;
+    private javax.swing.JTextField cDescripcion1;
+    private javax.swing.JTextField cMonto;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBox5;
     public javax.swing.JComboBox<String> jComboBox1;
     public javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    public javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1301,36 +1462,47 @@ public class VistaP extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu;
     private javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenuItem jMenuEliminar;
+    private javax.swing.JMenuItem jMenuEliminarVenta;
     public javax.swing.JMenuItem jMenuSalir;
     public javax.swing.JRadioButton jRadButNo;
     public javax.swing.JRadioButton jRadButSi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     public javax.swing.JTable jTable1;
     public javax.swing.JTable jTable2;
+    public javax.swing.JTable jTable3;
+    private javax.swing.JMenu jVenta;
     private javax.swing.JTextField jtx1;
     private javax.swing.JTextField jtx10;
     public javax.swing.JTextField jtx2;
     private javax.swing.JTextField jtx3;
     public javax.swing.JTextField jtx6;
     public javax.swing.JTextField jtx7;
+    public javax.swing.JTextField jtx8;
     public javax.swing.JLabel lbEstado;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl12;
     private javax.swing.JLabel lbl13;
+    private javax.swing.JLabel lbl14;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
     private javax.swing.JLabel lbl4;
     private javax.swing.JLabel lbl41;
     private javax.swing.JLabel lbl9;
     private javax.swing.JLabel lblBusqueda1;
+    private javax.swing.JLabel lblBusqueda2;
     public javax.swing.JLabel lblResultado1;
+    public javax.swing.JLabel lblResultado2;
     private javax.swing.JLabel lblTitulo1;
+    private javax.swing.JLabel lblTitulo10;
+    private javax.swing.JLabel lblTitulo11;
     private javax.swing.JLabel lblTitulo2;
     private javax.swing.JLabel lblTitulo3;
     private javax.swing.JLabel lblTitulo4;
@@ -1338,11 +1510,16 @@ public class VistaP extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo6;
     private javax.swing.JLabel lblTitulo7;
     private javax.swing.JLabel lblTitulo8;
+    private javax.swing.JLabel lblTitulo9;
     private javax.swing.JTextField modiNombre;
+    private javax.swing.JTextField modiNombre1;
     private javax.swing.JTextField modiPrecio;
+    private javax.swing.JTextField modiPrecio1;
     public javax.swing.JPanel panelAgregar;
     public javax.swing.JPanel panelEliminar;
     public javax.swing.JPanel panelListar;
     public javax.swing.JPanel panelModificar;
+    private javax.swing.JPanel panelModificar1;
+    private javax.swing.JPanel panelVenta;
     // End of variables declaration//GEN-END:variables
 }

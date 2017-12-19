@@ -18,7 +18,7 @@ public class Conexion {
     
     private static Connection conexion;
     
-    private Conexion(){}
+    Conexion(){}
             
     public static Connection obtenerInstancia()
     {
